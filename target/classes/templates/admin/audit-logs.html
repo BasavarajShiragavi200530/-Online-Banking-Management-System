@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head('System Audit Logs')}"></head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 col-lg-2 p-0">
+            <div th:replace="~{fragments/sidebar :: adminSidebar('audit')}"></div>
+        </div>
+
+        <main class="col-md-9 col-lg-10 ms-sm-auto px-md-4 py-4">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="fw-bold mb-0"><i class="bi bi-journal-text text-info me-2"></i> Security Audit & Action Logs</h2>
+            </div>
+
+            <div class="card card-bank border-0 shadow-sm">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-bank mb-0 align-middle">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>User Email</th>
+                                    <th>Action Type</th>
+                                    <th>Details</th>
+                                    <th>IP Address</th>
+                                    <th>Timestamp</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="log : ${auditLogs}">
+                                    <td th:text="${log.id}">1</td>
+                                    <td><code class="fw-bold text-dark" th:text="${log.userEmail}">user@bank.com</code></td>
+                                    <td><span class="badge bg-dark" th:text="${log.action}">LOGIN</span></td>
+                                    <td th:text="${log.details}">Action details</td>
+                                    <td><small class="font-monospace text-muted" th:text="${log.ipAddress}">127.0.0.1</small></td>
+                                    <td class="small text-muted" th:text="${#temporals.format(log.timestamp, 'MMM dd, yyyy - hh:mm a')}">Jan 01</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/footer :: scripts}"></div>
+</body>
+</html>

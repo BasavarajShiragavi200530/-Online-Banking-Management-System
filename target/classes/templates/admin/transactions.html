@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head('System Transaction Management')}"></head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 col-lg-2 p-0">
+            <div th:replace="~{fragments/sidebar :: adminSidebar('transactions')}"></div>
+        </div>
+
+        <main class="col-md-9 col-lg-10 ms-sm-auto px-md-4 py-4">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="fw-bold mb-0"><i class="bi bi-list-check text-info me-2"></i> All Systemic Transactions Log</h2>
+                <form th:action="@{/admin/transactions}" method="get" class="d-flex gap-2">
+                    <input type="text" name="query" th:value="${searchQuery}" class="form-control form-control-sm" placeholder="Filter by Transaction ID...">
+                    <button type="submit" class="btn btn-sm btn-info text-white">Search</button>
+                    <a th:href="@{/admin/transactions}" class="btn btn-sm btn-outline-secondary">Reset</a>
+                </form>
+            </div>
+
+            <div class="card card-bank border-0 shadow-sm">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-bank mb-0 align-middle">
+                            <thead>
+                                <tr>
+                                    <th>TXN ID</th>
+                                    <th>Sender Acc</th>
+                                    <th>Sender Name</th>
+                                    <th>Receiver Acc</th>
+                                    <th>Receiver Name</th>
+                                    <th>Type</th>
+                                    <th>Amount ($)</th>
+                                    <th>Date & Time</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="txn : ${transactions}">
+                                    <td><code class="fw-bold text-dark" th:text="${txn.transactionId}">TXN-101</code></td>
+                                    <td th:text="${txn.senderAccountNumber != null ? txn.senderAccountNumber : '--'}">--</td>
+                                    <td class="small" th:text="${txn.senderName != null ? txn.senderName : 'System'}">System</td>
+                                    <td th:text="${txn.receiverAccountNumber != null ? txn.receiverAccountNumber : '--'}">--</td>
+                                    <td class="small" th:text="${txn.receiverName != null ? txn.receiverName : 'System'}">System</td>
+                                    <td>
+                                        <span class="badge" th:classappend="${txn.transactionType.name() == 'DEPOSIT' ? 'bg-success' : (txn.transactionType.name() == 'TRANSFER' ? 'bg-info' : 'bg-warning text-dark')}" th:text="${txn.transactionType}">DEPOSIT</span>
+                                    </td>
+                                    <td class="fw-bold text-dark" th:text="'$' + ${#numbers.formatDecimal(txn.amount, 1, 'COMMA', 2, 'POINT')}">$0.00</td>
+                                    <td class="small text-muted" th:text="${#temporals.format(txn.timestamp, 'MMM dd, yyyy - hh:mm a')}">Jan 01</td>
+                                    <td><span class="badge bg-success" th:text="${txn.status}">SUCCESS</span></td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(transactions)}">
+                                    <td colspan="9" class="text-center py-5 text-muted">No systemic transactions recorded yet.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/footer :: scripts}"></div>
+</body>
+</html>
