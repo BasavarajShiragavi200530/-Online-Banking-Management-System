@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head('Contact Customer Support')}"></head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+            <h1 class="fw-bold mb-3">Get in Touch with Apex Support</h1>
+            <p class="lead text-muted mb-5">Our customer banking specialists are available 24/7 to assist with your account, transfers, or technical inquiries.</p>
+        </div>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-4">
+            <div class="card card-bank text-center p-4 h-100">
+                <i class="bi bi-telephone-inbound fs-1 text-info mb-3"></i>
+                <h5 class="fw-bold">Toll-Free Phone</h5>
+                <p class="text-muted">+1-800-555-0100<br>+1-800-555-0199</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-bank text-center p-4 h-100">
+                <i class="bi bi-envelope-at fs-1 text-info mb-3"></i>
+                <h5 class="fw-bold">Email Support</h5>
+                <p class="text-muted">support@bank.com<br>security@bank.com</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-bank text-center p-4 h-100">
+                <i class="bi bi-geo-alt fs-1 text-info mb-3"></i>
+                <h5 class="fw-bold">Global Headquarters</h5>
+                <p class="text-muted">Apex Financial Park<br>100 Banking Boulevard, Suite 500</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/footer :: scripts}"></div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+
+<!-- Customer Sidebar -->
+<div th:fragment="customerSidebar(activeTab)" class="sidebar d-flex flex-column">
+    <div class="px-4 mb-4">
+        <small class="text-uppercase text-muted font-weight-bold">Banking Menu</small>
+    </div>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+            <a th:href="@{/customer/dashboard}" class="nav-link" th:classappend="${activeTab == 'dashboard'} ? 'active' : ''">
+                <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
+        </li>
+        <li class="nav-item">
+            <a th:href="@{/customer/account-details}" class="nav-link" th:classappend="${activeTab == 'account'} ? 'active' : ''">
+                <i class="bi bi-wallet2"></i> Account Details
+            </a>
+        </li>
+        <li class="nav-item">
+            <a th:href="@{/customer/transfer}" class="nav-link" th:classappend="${activeTab == 'transfer'} ? 'active' : ''">
+                <i class="bi bi-arrow-left-right"></i> Fund Transfer
+            </a>
+        </li>
+        <li class="nav-item">
+            <a th:href="@{/customer/deposit-withdraw}" class="nav-link" th:classappend="${activeTab == 'deposit'} ? 'active' : ''">
+                <i class="bi bi-cash-stack"></i> Deposit / Withdraw
+            </a>
+        </li>
+        <li class="nav-item">
+            <a th:href="@{/customer/transactions}" class="nav-link" th:classappend="${activeTab == 'transactions'} ? 'active' : ''">
+                <i class="bi bi-clock-history"></i> Transaction History
+            </a>
+        </li>
+        <li class="nav-item mt-3">
+            <small class="px-4 text-uppercase text-muted font-weight-bold">Settings</small>
+        </li>
+        <li class="nav-item mt-1">
+            <a th:href="@{/customer/profile}" class="nav-link" th:classappend="${activeTab == 'profile'} ? 'active' : ''">
+                <i class="bi bi-person"></i> My Profile
+            </a>
+        </li>
+        <li class="nav-item">
+            <a th:href="@{/customer/change-password}" class="nav-link" th:classappend="${activeTab == 'password'} ? 'active' : ''">
+                <i class="bi bi-key"></i> Change Password
+            </a>
+        </li>
+    </ul>
+    <div class="p-3 border-top border-secondary mt-4">
+        <a th:href="@{/logout}" class="btn btn-outline-danger btn-sm w-100"><i class="bi bi-box-arrow-right me-1"></i> Sign Out</a>
+    </div>
+</div>
+
+<!-- Admin Sidebar -->
+<div th:fragment="adminSidebar(activeTab)" class="sidebar d-flex flex-column">
+    <div class="px-4 mb-4">
+        <small class="text-uppercase text-muted font-weight-bold">Admin Console</small>
+    </div>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+            <a th:href="@{/admin/dashboard}" class="nav-link" th:classappend="${activeTab == 'dashboard'} ? 'active' : ''">
+                <i class="bi bi-speedometer2"></i> Dashboard Overview
+            </a>
+        </li>
+        <li class="nav-item">
+            <a th:href="@{/admin/users}" class="nav-link" th:classappend="${activeTab == 'users'} ? 'active' : ''">
+                <i class="bi bi-people"></i> Manage Customers
+            </a>
+        </li>
+        <li class="nav-item">
+            <a th:href="@{/admin/accounts}" class="nav-link" th:classappend="${activeTab == 'accounts'} ? 'active' : ''">
+                <i class="bi bi-bank2"></i> Manage Accounts
+            </a>
+        </li>
+        <li class="nav-item">
+            <a th:href="@{/admin/transactions}" class="nav-link" th:classappend="${activeTab == 'transactions'} ? 'active' : ''">
+                <i class="bi bi-list-check"></i> All Transactions
+            </a>
+        </li>
+        <li class="nav-item">
+            <a th:href="@{/admin/reports}" class="nav-link" th:classappend="${activeTab == 'reports'} ? 'active' : ''">
+                <i class="bi bi-graph-up-arrow"></i> Bank Reports
+            </a>
+        </li>
+        <li class="nav-item">
+            <a th:href="@{/admin/audit-logs}" class="nav-link" th:classappend="${activeTab == 'audit'} ? 'active' : ''">
+                <i class="bi bi-journal-text"></i> System Audit Logs
+            </a>
+        </li>
+    </ul>
+    <div class="p-3 border-top border-secondary mt-4">
+        <a th:href="@{/logout}" class="btn btn-outline-danger btn-sm w-100"><i class="bi bi-box-arrow-right me-1"></i> Sign Out</a>
+    </div>
+</div>
+
+</body>
+</html>

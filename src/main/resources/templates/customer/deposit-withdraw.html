@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head('Self-Service Deposit & Withdrawal')}"></head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 col-lg-2 p-0">
+            <div th:replace="~{fragments/sidebar :: customerSidebar('deposit')}"></div>
+        </div>
+
+        <main class="col-md-9 col-lg-10 ms-sm-auto px-md-4 py-4">
+
+            <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i> <span th:text="${errorMessage}">Error</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card card-bank p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+                            <h3 class="fw-bold mb-0"><i class="bi bi-cash-stack text-info me-2"></i> Deposit / Withdraw Simulation</h3>
+                            <div class="text-end">
+                                <small class="text-muted d-block">Current Balance</small>
+                                <span class="fw-bold text-success fs-5" th:text="'$' + ${#numbers.formatDecimal(account.balance, 1, 'COMMA', 2, 'POINT')}">$0.00</span>
+                            </div>
+                        </div>
+
+                        <form th:action="@{/customer/deposit-withdraw}" th:object="${depositWithdrawDto}" method="post">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+                            <div class="mb-3">
+                                <label for="transactionType" class="form-label fw-semibold">Select Operation *</label>
+                                <select th:field="*{transactionType}" class="form-select" id="transactionType" required>
+                                    <option th:value="DEPOSIT">DEPOSIT FUNDS (+)</option>
+                                    <option th:value="WITHDRAWAL">CASH WITHDRAWAL (-)</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="amount" class="form-label fw-semibold">Amount ($) *</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
+                                    <input type="number" step="0.01" min="10.00" max="50000.00" th:field="*{amount}" class="form-control" id="amount" placeholder="100.00" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="remarks" class="form-label fw-semibold">Remarks</label>
+                                <input type="text" th:field="*{remarks}" class="form-control" id="remarks" placeholder="ATM Deposit / ATM Cash Cashout">
+                            </div>
+
+                            <button type="submit" class="btn btn-bank-primary w-100 py-2 fs-5">
+                                <i class="bi bi-check-circle me-1"></i> Process Transaction
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/footer :: scripts}"></div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head('Transaction History')}"></head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 col-lg-2 p-0">
+            <div th:replace="~{fragments/sidebar :: customerSidebar('transactions')}"></div>
+        </div>
+
+        <main class="col-md-9 col-lg-10 ms-sm-auto px-md-4 py-4">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="fw-bold mb-0"><i class="bi bi-clock-history text-info me-2"></i> Transaction Statement & History</h2>
+                <div>
+                    <button onclick="window.print()" class="btn btn-outline-dark btn-sm"><i class="bi bi-printer me-1"></i> Print Statement</button>
+                </div>
+            </div>
+
+            <!-- Filter Controls -->
+            <div class="card card-bank p-3 mb-4">
+                <form th:action="@{/customer/transactions}" method="get" class="row g-3 align-items-center">
+                    <div class="col-md-4">
+                        <label class="form-label small text-muted fw-bold mb-1">Timeframe Filter</label>
+                        <div class="btn-group w-100" role="group">
+                            <a th:href="@{/customer/transactions(timeframe='all')}" class="btn btn-outline-secondary btn-sm" th:classappend="${currentTimeframe == 'all'} ? 'active' : ''">All Time</a>
+                            <a th:href="@{/customer/transactions(timeframe='today')}" class="btn btn-outline-secondary btn-sm" th:classappend="${currentTimeframe == 'today'} ? 'active' : ''">Today</a>
+                            <a th:href="@{/customer/transactions(timeframe='weekly')}" class="btn btn-outline-secondary btn-sm" th:classappend="${currentTimeframe == 'weekly'} ? 'active' : ''">Weekly</a>
+                            <a th:href="@{/customer/transactions(timeframe='monthly')}" class="btn btn-outline-secondary btn-sm" th:classappend="${currentTimeframe == 'monthly'} ? 'active' : ''">Monthly</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small text-muted fw-bold mb-1">Search Transaction ID</label>
+                        <div class="input-group input-group-sm">
+                            <input type="text" name="search" th:value="${searchQuery}" class="form-control" placeholder="Search by TXN-...">
+                            <button type="submit" class="btn btn-info text-white"><i class="bi bi-search"></i> Search</button>
+                        </div>
+                    </div>
+                    <div class="col-md-2 text-end mt-4">
+                        <a th:href="@{/customer/transactions}" class="btn btn-sm btn-link text-muted">Reset Filters</a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Transaction Table -->
+            <div class="card card-bank border-0 shadow-sm">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-bank mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Transaction ID</th>
+                                    <th>Date & Time</th>
+                                    <th>Type</th>
+                                    <th>Sender Account</th>
+                                    <th>Receiver Account</th>
+                                    <th>Remarks</th>
+                                    <th class="text-end">Amount</th>
+                                    <th class="text-center">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="txn : ${transactions}">
+                                    <td><code class="fw-bold text-dark" th:text="${txn.transactionId}">TXN-12345</code></td>
+                                    <td th:text="${#temporals.format(txn.timestamp, 'MMM dd, yyyy - hh:mm a')}">Jan 01, 2026</td>
+                                    <td>
+                                        <span class="badge" 
+                                              th:classappend="${txn.transactionType.name() == 'DEPOSIT' ? 'bg-success' : (txn.transactionType.name() == 'TRANSFER' ? 'bg-info' : 'bg-warning text-dark')}"
+                                              th:text="${txn.transactionType}">DEPOSIT</span>
+                                    </td>
+                                    <td th:text="${txn.senderAccountNumber != null ? txn.senderAccountNumber : '--'}">--</td>
+                                    <td th:text="${txn.receiverAccountNumber != null ? txn.receiverAccountNumber : '--'}">--</td>
+                                    <td th:text="${txn.remarks}">Funds Transfer</td>
+                                    <td class="text-end" th:classappend="${txn.isCredit ? 'text-credit' : 'text-debit'}"
+                                        th:text="${(txn.isCredit ? '+' : '-') + '$' + #numbers.formatDecimal(txn.amount, 1, 'COMMA', 2, 'POINT')}">+$0.00</td>
+                                    <td class="text-center">
+                                        <span class="badge bg-success" th:text="${txn.status}">SUCCESS</span>
+                                    </td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(transactions)}">
+                                    <td colspan="8" class="text-center py-5 text-muted">No transactions matched your selected search criteria.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/footer :: scripts}"></div>
+</body>
+</html>

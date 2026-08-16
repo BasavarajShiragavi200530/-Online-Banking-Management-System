@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head('Account Details')}"></head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 col-lg-2 p-0">
+            <div th:replace="~{fragments/sidebar :: customerSidebar('account')}"></div>
+        </div>
+
+        <main class="col-md-9 col-lg-10 ms-sm-auto px-md-4 py-4">
+            <h2 class="fw-bold mb-4">Account Details & Specifications</h2>
+
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="card card-bank p-4">
+                        <div class="d-flex align-items-center gap-3 mb-4 border-bottom pb-3">
+                            <i class="bi bi-bank fs-1 text-info"></i>
+                            <div>
+                                <h4 class="fw-bold mb-0" th:text="${account.ownerName}">Account Holder</h4>
+                                <small class="text-muted" th:text="${account.ownerEmail}">user@bank.com</small>
+                            </div>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <small class="text-muted d-block">Account Number</small>
+                                <span class="fw-bold font-monospace fs-5 text-dark" th:text="${account.accountNumber}">100020003001</span>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-muted d-block">Account Type</small>
+                                <span class="fw-bold text-dark" th:text="${account.accountType}">SAVINGS</span>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-muted d-block">Current Balance</small>
+                                <span class="fw-bold fs-5 text-success" th:text="'$' + ${#numbers.formatDecimal(account.balance, 1, 'COMMA', 2, 'POINT')}">$0.00</span>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-muted d-block">Account Status</small>
+                                <span class="badge bg-success fs-6" th:text="${account.accountStatus}">ACTIVE</span>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-muted d-block">Bank Branch</small>
+                                <span class="fw-semibold text-dark" th:text="${account.branch}">Main District Branch</span>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-muted d-block">IFSC / Routing Code</small>
+                                <span class="font-monospace fw-bold text-info" th:text="${account.ifscCode}">APEX000101</span>
+                            </div>
+                            <div class="col-12 border-top pt-3">
+                                <small class="text-muted d-block">Account Opening Date</small>
+                                <span class="text-dark" th:text="${#temporals.format(account.createdAt, 'MMMM dd, yyyy - hh:mm a')}">Jan 01, 2026</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card card-bank p-4 bg-dark text-white h-100">
+                        <h4 class="fw-bold text-info mb-3"><i class="bi bi-shield-check me-2"></i> Banking Security Notice</h4>
+                        <p class="opacity-75">Your Apex Bank account is protected with multi-layered Spring Security features and continuous transaction monitoring.</p>
+                        <hr class="border-secondary">
+                        <div class="mb-3">
+                            <h6><i class="bi bi-info-circle text-info me-2"></i> How to Share Account Details for Wire Transfers</h6>
+                            <p class="small text-light opacity-75">To receive funds from other Apex customers, simply provide them your 12-digit Account Number (<code><span th:text="${account.accountNumber}">100020003001</span></code>) or your registered Email Address.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/footer :: scripts}"></div>
+</body>
+</html>

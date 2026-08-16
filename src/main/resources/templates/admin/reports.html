@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head('Financial Reports')}"></head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 col-lg-2 p-0">
+            <div th:replace="~{fragments/sidebar :: adminSidebar('reports')}"></div>
+        </div>
+
+        <main class="col-md-9 col-lg-10 ms-sm-auto px-md-4 py-4">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="fw-bold mb-0"><i class="bi bi-graph-up-arrow text-info me-2"></i> Comprehensive Bank Financial Reports</h2>
+                <button onclick="window.print()" class="btn btn-outline-dark"><i class="bi bi-printer me-1"></i> Export PDF / Print</button>
+            </div>
+
+            <div class="row g-4 mb-4">
+                <div class="col-md-4">
+                    <div class="card card-bank p-4 border-start border-4 border-primary">
+                        <small class="text-muted text-uppercase fw-bold">Total Customer Deposits Pool</small>
+                        <h2 class="fw-bold text-primary mt-2" th:text="'$' + ${#numbers.formatDecimal(report.totalBankDeposits, 1, 'COMMA', 2, 'POINT')}">$0.00</h2>
+                        <small class="text-muted">Total bank liquid assets</small>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-bank p-4 border-start border-4 border-info">
+                        <small class="text-muted text-uppercase fw-bold">Total Transfer Volume</small>
+                        <h2 class="fw-bold text-info mt-2" th:text="'$' + ${#numbers.formatDecimal(report.totalTransfersVolume, 1, 'COMMA', 2, 'POINT')}">$0.00</h2>
+                        <small class="text-muted">Inter-customer transfers</small>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-bank p-4 border-start border-4 border-warning">
+                        <small class="text-muted text-uppercase fw-bold">Total Cash Withdrawals Volume</small>
+                        <h2 class="fw-bold text-warning mt-2" th:text="'$' + ${#numbers.formatDecimal(report.totalWithdrawalsVolume, 1, 'COMMA', 2, 'POINT')}">$0.00</h2>
+                        <small class="text-muted">ATM & cash payouts</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Breakdown Table -->
+            <div class="card card-bank p-4">
+                <h5 class="fw-bold mb-3">System Metrics Summary Breakdown</h5>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Metric Indicator</th>
+                                <th>Count / Volume</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Registered Retail Customers</td>
+                                <td class="fw-bold" th:text="${report.totalCustomers}">0</td>
+                                <td><span class="badge bg-success">ACTIVE</span></td>
+                            </tr>
+                            <tr>
+                                <td>Total Bank Accounts Created</td>
+                                <td class="fw-bold" th:text="${report.totalAccounts}">0</td>
+                                <td><span class="badge bg-info">VERIFIED</span></td>
+                            </tr>
+                            <tr>
+                                <td>Active Operational Accounts</td>
+                                <td class="fw-bold text-success" th:text="${report.activeAccounts}">0</td>
+                                <td><span class="badge bg-success">OPERATIONAL</span></td>
+                            </tr>
+                            <tr>
+                                <td>Frozen Account Suspensions</td>
+                                <td class="fw-bold text-danger" th:text="${report.frozenAccounts}">0</td>
+                                <td><span class="badge bg-danger">FROZEN</span></td>
+                            </tr>
+                            <tr>
+                                <td>Today's Total Transactions Count</td>
+                                <td class="fw-bold" th:text="${report.todayTransactionsCount}">0</td>
+                                <td><span class="badge bg-warning text-dark">DAILY LOG</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/footer :: scripts}"></div>
+</body>
+</html>

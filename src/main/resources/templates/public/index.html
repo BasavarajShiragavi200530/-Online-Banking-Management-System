@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head('Welcome to Apex Online Bank')}"></head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<!-- Hero Section -->
+<section class="hero-header">
+    <div class="container text-center py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <span class="badge bg-info text-white px-3 py-2 rounded-pill mb-3 fw-bold">NEXT-GEN DIGITAL BANKING</span>
+                <h1 class="display-3 fw-bold text-white mb-4">Empowering Your Financial Future with <span class="brand-gradient-text">Apex Bank</span></h1>
+                <p class="lead text-light opacity-75 mb-5 px-lg-5">
+                    Experience seamless, zero-latency transfers, enterprise-grade BCrypt encryption, 24/7 account management, and real-time transaction reporting.
+                </p>
+                <div class="d-flex justify-content-center gap-3">
+                    <a th:href="@{/register}" class="btn btn-bank-primary btn-lg px-4 py-3"><i class="bi bi-person-plus-fill me-2"></i> Open Savings Account</a>
+                    <a th:href="@{/login}" class="btn btn-outline-light btn-lg px-4 py-3"><i class="bi bi-shield-lock me-2"></i> Online Banking Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Core Features Section -->
+<section class="py-5 bg-white">
+    <div class="container py-4">
+        <div class="text-center mb-5">
+            <h6 class="text-info text-uppercase font-weight-bold tracking-wide">Why Choose Apex</h6>
+            <h2 class="fw-bold">Enterprise Banking Solutions</h2>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card card-bank h-100 p-4 border-0">
+                    <div class="mb-3 text-info fs-1">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <h4 class="fw-bold mb-2">Ironclad Security</h4>
+                    <p class="text-muted">Spring Security 6 integration with BCrypt strength 12 password hashing and session fixation protection.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-bank h-100 p-4 border-0">
+                    <div class="mb-3 text-info fs-1">
+                        <i class="bi bi-lightning-charge"></i>
+                    </div>
+                    <h4 class="fw-bold mb-2">Instant Transfers</h4>
+                    <p class="text-muted">Direct account-to-account real-time money transfers with atomic database transaction isolation.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-bank h-100 p-4 border-0">
+                    <div class="mb-3 text-info fs-1">
+                        <i class="bi bi-graph-up-arrow"></i>
+                    </div>
+                    <h4 class="fw-bold mb-2">Real-Time Insights</h4>
+                    <p class="text-muted">Comprehensive transaction history filtering, date-range searches, and live financial breakdown analytics.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Demo Test Credentials Section -->
+<section class="py-5 bg-light border-top">
+    <div class="container">
+        <div class="card card-bank p-4 border-0 bg-white shadow-sm">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h4 class="fw-bold text-dark mb-2"><i class="bi bi-key-fill text-warning me-2"></i> Quick Test Access Accounts</h4>
+                    <p class="text-muted mb-0">Use the pre-configured credentials below for immediate login testing:</p>
+                </div>
+                <div class="col-md-6 mt-3 mt-md-0">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered mb-0">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Role</th>
+                                    <th>Email</th>
+                                    <th>Password</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="badge bg-danger">ADMIN</span></td>
+                                    <td><code>Basavaraj@bank.com</code></td>
+                                    <td><code>Basavaraj@123</code></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge bg-success">CUSTOMER 1</span></td>
+                                    <td><code>Basavaraj@bank.com</code></td>
+                                    <td><code>Basavaraj@123</code></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge bg-success">CUSTOMER 2</span></td>
+                                    <td><code>bharath@bank.com</code></td>
+                                    <td><code>Bharath@123</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/footer :: scripts}"></div>
+</body>
+</html>

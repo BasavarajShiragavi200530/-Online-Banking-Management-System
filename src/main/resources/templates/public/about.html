@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head('About Us')}"></head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container py-5">
+    <div class="row align-items-center mb-5">
+        <div class="col-lg-6">
+            <span class="badge bg-info text-white mb-2">ABOUT APEX BANK</span>
+            <h1 class="fw-bold display-5 mb-3">Redefining Modern Digital Financial Systems</h1>
+            <p class="lead text-muted">
+                Apex Online Banking System is a high-availability, secure enterprise full-stack banking platform built using Spring Boot 3, Spring Security 6, Hibernate JPA, and Bootstrap 5.
+            </p>
+            <p class="text-muted">
+                Our mission is to deliver zero-downtime, transparent, and seamless online banking experiences for both retail customers and corporate financial managers.
+            </p>
+        </div>
+        <div class="col-lg-6">
+            <div class="card card-bank p-4 bg-dark text-white border-0 shadow">
+                <h4 class="text-info fw-bold mb-3"><i class="bi bi-shield-check me-2"></i> Core System Specifications</h4>
+                <ul class="list-unstyled mb-0">
+                    <li class="py-2 border-bottom border-secondary"><i class="bi bi-check-circle-fill text-success me-2"></i> Java 17 / Spring Boot 3 MVC Architecture</li>
+                    <li class="py-2 border-bottom border-secondary"><i class="bi bi-check-circle-fill text-success me-2"></i> Spring Security 6 Role-Based Authorization</li>
+                    <li class="py-2 border-bottom border-secondary"><i class="bi bi-check-circle-fill text-success me-2"></i> MySQL 8 / H2 InnoDB Transaction Support</li>
+                    <li class="py-2 border-bottom border-secondary"><i class="bi bi-check-circle-fill text-success me-2"></i> BCrypt Password Encoder & Session Protection</li>
+                    <li class="py-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Responsive Glassmorphism Bootstrap 5 UI</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/footer :: scripts}"></div>
+</body>
+</html>

@@ -1,0 +1,229 @@
+/* =========================================================
+   APEX ONLINE BANKING SYSTEM - DESIGN SYSTEM & STYLESHEET
+   ========================================================= */
+
+:root {
+    --primary-color: #0f172a;      /* Slate Navy */
+    --primary-light: #1e293b;
+    --accent-color: #0284c7;       /* Apex Cyan */
+    --accent-hover: #0369a1;
+    --success-color: #059669;      /* Emerald Green */
+    --warning-color: #d97706;      /* Amber */
+    --danger-color: #dc2626;       /* Rose Red */
+    --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --border-radius: 12px;
+    --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f8fafc;
+    color: #334155;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Public Hero Header --- */
+.hero-header {
+    background: var(--bg-gradient);
+    color: #ffffff;
+    padding: 100px 0 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-header::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(2, 132, 199, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.brand-gradient-text {
+    background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* --- Navigation Bar --- */
+.navbar-bank {
+    background: var(--primary-color) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.navbar-bank .navbar-brand {
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: #ffffff !important;
+    letter-spacing: -0.5px;
+}
+
+.navbar-bank .nav-link {
+    color: #cbd5e1 !important;
+    font-weight: 500;
+    margin: 0 6px;
+    transition: var(--transition);
+}
+
+.navbar-bank .nav-link:hover,
+.navbar-bank .nav-link.active {
+    color: #38bdf8 !important;
+}
+
+/* --- Glassmorphism & Cards --- */
+.card-bank {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+
+}
+
+.card-bank:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.card-dashboard-balance {
+    background: linear-gradient(135deg, #0f172a 0%, #0284c7 100%);
+    color: #ffffff;
+    border-radius: var(--border-radius);
+    padding: 1.8rem;
+    box-shadow: 0 12px 30px rgba(2, 132, 199, 0.25);
+}
+
+.card-dashboard-stat {
+    border-left: 4px solid var(--accent-color);
+}
+
+/* --- Sidebar --- */
+.sidebar {
+    background: var(--primary-color);
+    color: #cbd5e1;
+    min-height: calc(100vh - 64px);
+    padding-top: 1.5rem;
+}
+
+.sidebar .nav-link {
+    color: #94a3b8;
+    padding: 0.8rem 1.25rem;
+    font-weight: 500;
+    border-radius: 8px;
+    margin: 4px 12px;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+    background: rgba(255, 255, 255, 0.08);
+    color: #38bdf8;
+}
+
+/* --- Custom Buttons --- */
+.btn-bank-primary {
+    background-color: var(--accent-color);
+    color: #ffffff;
+    font-weight: 600;
+    padding: 0.6rem 1.4rem;
+    border-radius: 8px;
+    border: none;
+    transition: var(--transition);
+}
+
+.btn-bank-primary:hover {
+    background-color: var(--accent-hover);
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+}
+
+.btn-bank-dark {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+}
+
+.btn-bank-dark:hover {
+    background-color: var(--primary-light);
+    color: #ffffff;
+}
+
+/* --- Tables & Status Badges --- */
+.table-bank {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table-bank th {
+    background-color: #f1f5f9;
+    color: #475569;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #e2e8f0;
+    padding: 1rem;
+}
+
+.table-bank td {
+    padding: 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.badge-status-active {
+    background-color: #dcfce7;
+    color: #15803d;
+    font-weight: 600;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+}
+
+.badge-status-frozen {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    font-weight: 600;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+}
+
+.badge-status-pending {
+    background-color: #fef3c7;
+    color: #b45309;
+    font-weight: 600;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+}
+
+.text-credit {
+    color: var(--success-color);
+    font-weight: 600;
+}
+
+.text-debit {
+    color: var(--danger-color);
+    font-weight: 600;
+}
+
+/* --- Footer --- */
+footer {
+    background: var(--primary-color);
+    color: #94a3b8;
+    margin-top: auto;
+    padding: 2rem 0;
+}

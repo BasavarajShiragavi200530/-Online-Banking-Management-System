@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head('Customer Dashboard')}"></head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar Navigation -->
+        <div class="col-md-3 col-lg-2 p-0">
+            <div th:replace="~{fragments/sidebar :: customerSidebar('dashboard')}"></div>
+        </div>
+
+        <!-- Main Content Area -->
+        <main class="col-md-9 col-lg-10 ms-sm-auto px-md-4 py-4">
+
+            <!-- Flash Alerts -->
+            <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i> <span th:text="${successMessage}">Success</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i> <span th:text="${errorMessage}">Error</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+
+            <!-- Welcome Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2 class="fw-bold mb-1">Welcome back, <span class="text-primary" th:text="${dashboard.customerName}">Customer</span>!</h2>
+                    <p class="text-muted mb-0">Overview of your online bank account summary and recent activity.</p>
+                </div>
+                <div>
+                    <a th:href="@{/customer/transfer}" class="btn btn-bank-primary"><i class="bi bi-arrow-left-right me-1"></i> Quick Transfer</a>
+                    <a th:href="@{/customer/deposit-withdraw}" class="btn btn-dark ms-2"><i class="bi bi-cash-stack me-1"></i> Deposit / Withdraw</a>
+                </div>
+            </div>
+
+            <!-- Account Summary Cards -->
+            <div class="row g-4 mb-4">
+                <div class="col-lg-5">
+                    <div class="card card-dashboard-balance">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <small class="text-uppercase text-light opacity-75 fw-bold">Total Available Balance</small>
+                                <h1 class="display-5 fw-bold mt-1 mb-0" th:text="'$' + ${#numbers.formatDecimal(dashboard.balance, 1, 'COMMA', 2, 'POINT')}">$0.00</h1>
+                            </div>
+                            <span class="badge" th:classappend="${dashboard.accountStatus == 'ACTIVE'} ? 'bg-success' : 'bg-danger'" th:text="${dashboard.accountStatus}">ACTIVE</span>
+                        </div>
+                        <div class="border-top border-secondary pt-3 mt-2 d-flex justify-content-between">
+                            <div>
+                                <small class="d-block opacity-75">Account Number</small>
+                                <span class="font-monospace fw-bold fs-5" th:text="${dashboard.accountNumber}">100020003000</span>
+                            </div>
+                            <div class="text-end">
+                                <small class="d-block opacity-75">Type / IFSC</small>
+                                <span class="fw-bold" th:text="${dashboard.accountType} + ' | ' + ${dashboard.ifscCode}">SAVINGS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <div class="card card-bank p-3 card-dashboard-stat h-100">
+                                <small class="text-muted text-uppercase font-weight-bold">Total Inflows (Deposits/Received)</small>
+                                <h3 class="fw-bold text-success mt-2" th:text="'+$' + ${#numbers.formatDecimal(dashboard.totalMoneyIn, 1, 'COMMA', 2, 'POINT')}">+$0.00</h3>
+                                <small class="text-muted"><i class="bi bi-arrow-down-left text-success"></i> Credit Total</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card card-bank p-3 card-dashboard-stat h-100 border-left border-danger" style="border-left-color: var(--danger-color) !important;">
+                                <small class="text-muted text-uppercase font-weight-bold">Total Outflows (Transfers/Spent)</small>
+                                <h3 class="fw-bold text-danger mt-2" th:text="'-$' + ${#numbers.formatDecimal(dashboard.totalMoneyOut, 1, 'COMMA', 2, 'POINT')}">-$0.00</h3>
+                                <small class="text-muted"><i class="bi bi-arrow-up-right text-danger"></i> Debit Total</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="card card-bank p-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="fw-bold mb-0">Total Activity Volume</h6>
+                                        <small class="text-muted" th:text="${dashboard.totalTransactionsCount} + ' total completed transactions'">0 transactions</small>
+                                    </div>
+                                    <a th:href="@{/customer/transactions}" class="btn btn-sm btn-outline-primary">View Full History</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Transactions Table -->
+            <div class="card card-bank border-0 shadow-sm mb-4">
+                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold mb-0"><i class="bi bi-clock-history text-info me-2"></i> Recent Transactions</h5>
+                    <a th:href="@{/customer/transactions}" class="btn btn-sm btn-link text-decoration-none">View All &rarr;</a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-bank mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Transaction ID</th>
+                                    <th>Date & Time</th>
+                                    <th>Type</th>
+                                    <th>Details / Remarks</th>
+                                    <th class="text-end">Amount</th>
+                                    <th class="text-center">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="txn : ${dashboard.recentTransactions}">
+                                    <td><code class="fw-bold text-dark" th:text="${txn.transactionId}">TXN-123</code></td>
+                                    <td th:text="${#temporals.format(txn.timestamp, 'MMM dd, yyyy - hh:mm a')}">Jan 01, 2026</td>
+                                    <td>
+                                        <span class="badge" 
+                                              th:classappend="${txn.transactionType.name() == 'DEPOSIT' ? 'bg-success' : (txn.transactionType.name() == 'TRANSFER' ? 'bg-info' : 'bg-warning text-dark')}"
+                                              th:text="${txn.transactionType}">DEPOSIT</span>
+                                    </td>
+                                    <td th:text="${txn.remarks}">Deposit</td>
+                                    <td class="text-end" th:classappend="${txn.isCredit ? 'text-credit' : 'text-debit'}"
+                                        th:text="${(txn.isCredit ? '+' : '-') + '$' + #numbers.formatDecimal(txn.amount, 1, 'COMMA', 2, 'POINT')}">+$0.00</td>
+                                    <td class="text-center">
+                                        <span class="badge bg-success" th:text="${txn.status}">SUCCESS</span>
+                                    </td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(dashboard.recentTransactions)}">
+                                    <td colspan="6" class="text-center py-4 text-muted">No transactions found for this account yet.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/footer :: scripts}"></div>
+</body>
+</html>
